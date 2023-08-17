@@ -30,6 +30,7 @@ def get_fruityvice_data(this_fruit_choice):
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
     fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
     return fruityvice_normalized
+    
 #New section to display fruityvice api response
 streamlit.header('Fruityvice Fruit Advice!')
 try:
@@ -42,7 +43,6 @@ try:
 except URLError as e:
     streamlit.error()
 #streamlit.write('The user entered ', fruit_choice)
-
 #import requests
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
  
@@ -50,7 +50,7 @@ except URLError as e:
 #fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # output it the screen as a table
 #streamlit.dataframe(fruityvice_normalized)
-streamlit.stop()
+#streamlit.stop()
 
 import snowflake.connector
 streamlit.header("The fruit load list contains:")
@@ -64,8 +64,8 @@ def get_fruit_load_list():
 if streamlit.button('Get Fruit Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     my_data_rows = get_fruit_load_list()
-    my_cnx.close()
     streamlit.dataframe(my_data_rows)
+#my_cnx.close()
     
 #Allow end user to add a fruit to the list
 def insert_row_snowflake(new_fruit):
